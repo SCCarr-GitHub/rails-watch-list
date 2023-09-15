@@ -1,0 +1,26 @@
+<h1>List</h1>
+
+<p>Name: <%= @list.name %></p>
+
+<h2>Bookmarks</h2>
+
+<ul>
+  <% @list.bookmarks.each do |bookmark| %>
+    <li>
+      <%= link_to bookmark.movie.title, movie_path(bookmark.movie) %>
+    </li>
+  <% end %>
+</ul>
+
+<h2>New Bookmark</h2>
+
+<%= form_for @bookmark, url: list_bookmarks_path(@list) do |f| %>
+  <div class="field">
+    <%= f.label :movie_id %>
+    <%= f.select :movie_id, Movie.all.collect { |movie| [movie.title, movie.id] } %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
